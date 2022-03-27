@@ -30,10 +30,12 @@ const renderSpinner = function (parentElement) {
 
 const showRecipe = async function () {
   try {
+    const id = window.location.hash.replace('#', '');
+
     // 1. Load recipe
     renderSpinner(recipeContainer);
     const res = await fetch(
-      'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886'
+      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
     );
     const data = await res.json();
 
@@ -51,7 +53,7 @@ const showRecipe = async function () {
       sourceUrl: recipe.source_url,
       image: recipe.image_url,
       servings: recipe.servings,
-      cookingTime: recipe.cookingTime,
+      cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
     console.log(normalizedRecipe);
@@ -163,4 +165,14 @@ const showRecipe = async function () {
   }
 };
 
-showRecipe();
+const getAllRecipes = async function () {
+  const res = await fetch(
+    'https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza'
+  );
+  const data = await res.json();
+  console.log(data);
+};
+
+// showRecipe();
+// getAllRecipes();
+window.addEventListener('hashchange', showRecipe);
