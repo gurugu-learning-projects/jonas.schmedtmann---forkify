@@ -6,6 +6,7 @@ class RecipeView {
   #data = {};
   #errorMessage =
     'We could not find the recipe you were looking for. Try another one.';
+  #message = '';
 
   render(data) {
     this.#data = data;
@@ -116,6 +117,21 @@ class RecipeView {
         <div>
           <svg>
             <use href="${icons}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>
+    `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', html);
+  }
+
+  renderMessage(message = this.#message) {
+    const html = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="${icons}#icon-smile"></use>
           </svg>
         </div>
         <p>${message}</p>
