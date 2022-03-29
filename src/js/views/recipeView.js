@@ -4,6 +4,8 @@ import icons from 'url:../../img/icons.svg';
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data = {};
+  #errorMessage =
+    'We could not find the recipe you were looking for. Try another one.';
 
   render(data) {
     this.#data = data;
@@ -108,7 +110,22 @@ class RecipeView {
     `;
   }
 
-  renderSpinner = function () {
+  renderError(message = this.#errorMessage) {
+    const html = `
+      <div class="error">
+        <div>
+          <svg>
+            <use href="${icons}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>
+    `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', html);
+  }
+
+  renderSpinner() {
     const html = `
       <div class="spinner">
         <svg>
@@ -118,9 +135,9 @@ class RecipeView {
     `;
     this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', html);
-  };
+  }
 
-  generateMarkupIngredient = function (ingredient) {
+  generateMarkupIngredient(ingredient) {
     return `
       <li class="recipe__ingredient">
         <svg class="recipe__icon">
@@ -137,7 +154,7 @@ class RecipeView {
         </div>
       </li>
     `;
-  };
+  }
 }
 
 export default new RecipeView();
