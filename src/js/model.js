@@ -45,8 +45,7 @@ export const loadSearchResults = async function (query) {
       publisher: recipe.publisher,
       image: recipe.image_url,
     }));
-
-    console.log(state.search);
+    state.search.page = 1;
   } catch (error) {
     throw error;
   }
