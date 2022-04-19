@@ -10,13 +10,15 @@ const timeout = function (s) {
 
 export const AJAX = async function (url, uploadData = undefined) {
   try {
-    const fetchPro = fetch(url, {
-      method: uploadData ? 'POST' : 'GET',
-      body: uploadData ? uploadData : undefined,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const fetchPro = uploadData
+      ? fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(uploadData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      : fetch(url);
     const response = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
 
     if (!response.ok) {
