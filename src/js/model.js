@@ -7,7 +7,7 @@ export const state = {
     query: '',
     results: [],
     page: 1,
-    resultsPerPage: 10,
+    resultsPerPage: RESULTS_PER_PAGE,
   },
   bookmarks: [],
 };
